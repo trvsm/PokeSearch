@@ -10,6 +10,11 @@ import {
   NativeSyntheticEvent,
   TextInputChangeEventData,
 } from 'react-native';
+import mobileAds, {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from 'react-native-google-mobile-ads';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
@@ -19,6 +24,11 @@ import List from './components/list/list';
 import currentVal from './helpers/textInputVal';
 import activeItem from './helpers/activeItem';
 
+mobileAds()
+  .initialize()
+  .then(adapterStatuses => {
+    console.log(adapterStatuses);
+  });
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   const [abName, setAbName] = useState<string>('');
@@ -43,18 +53,21 @@ function App(): JSX.Element {
           backgroundColor={backgroundStyle.backgroundColor}
         />
         <Header />
+        <BannerAd size={BannerAdSize.LEADERBOARD} unitId={TestIds.BANNER} />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           {activeAbility ? (
             <Text>{`${activeAbility.name}: ${
-              activeAbility.effect_entries[0].language.name === 'en'
-                ? activeAbility.effect_entries[0].effect
-                : activeAbility.effect_entries[1].effect
+              activeAbility.effect_entries
+                ? activeAbility.effect_entries[0]?.language.name === 'en'
+                  ? activeAbility.effect_entries[0].effect
+                  : activeAbility.effect_entries[1].effect
+                : 'Effect details coming soon'
             }`}</Text>
           ) : (
-            <></>
+            <Text>Ability Details</Text>
           )}
           <Search
             placeholder="Search for an ability by name"

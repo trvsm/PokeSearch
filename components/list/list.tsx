@@ -21,7 +21,7 @@ const List: React.FC<Props> = ({searchTerm, clickHandler}) => {
   }, [searchTerm]);
   return searchTerm ? (
     <>
-      <Text>Click an ability to show details:</Text>
+      <Text>Search above, click result for detail view</Text>
       <FlatList
         data={searchMatch}
         renderItem={({item}) => (
@@ -33,8 +33,7 @@ const List: React.FC<Props> = ({searchTerm, clickHandler}) => {
     </>
   ) : (
     <>
-      <Text>Search above to filter ability list</Text>
-      <Text>Click an ability to show details:</Text>
+      <Text>Search above, click result for detail view</Text>
       <FlatList
         data={abilities}
         renderItem={({item}) => (
