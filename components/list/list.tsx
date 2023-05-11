@@ -1,5 +1,5 @@
 import React, {SyntheticEvent, useEffect, useState} from 'react';
-import {FlatList, Text} from 'react-native';
+import {Button, FlatList, Text} from 'react-native';
 const abilities = require('../../data/abilities.json');
 
 interface Props {
@@ -9,44 +9,55 @@ interface Props {
 
 const List: React.FC<Props> = ({searchTerm, clickHandler}) => {
   const [searchMatch, setSearchMatch] = useState<string[]>([]);
+  const [showList, setShowList] = useState('none');
+
+  const listToggle=()=>{
+    showList ==='none'? setShowList('flex'):setShowList('none')
+  }
 
   useEffect(() => {
     if (searchTerm) {
-      const reg = new RegExp(searchTerm, 'i');
+      const reg = new RegExp(`^${searchTerm}`, 'i');
+      console.log(reg);
       const matches = abilities.filter(ability => {
         return ability.name.match(reg);
       });
       setSearchMatch(matches);
     }
   }, [searchTerm]);
-  return searchTerm ? (
+  return  (
     <>
       <Text>Search above, click result for detail view</Text>
-      <FlatList
-        data={searchMatch}
-        renderItem={({item}) => (
-          <Text id={item.name} onPress={() => clickHandler(item, abilities)}>
-            {item.name}
-          </Text>
-        )}
-      />
+      <Button
+        onPress={listToggle}
+        title="Show/Hide Ability List &#709;"></Button>
+      {searchTerm ? (
+        <FlatList
+          data={searchMatch}
+          renderItem={({item}) => (
+            <Text id={item.name} onPress={() => clickHandler(item, abilities)}>
+              {item.name}
+            </Text>
+          )}
+        />
+      ) : (
+        <FlatList
+          style={{
+            display: showList,
+          }}
+          data={abilities}
+          renderItem={({item}) => (
+            <Text
+              id={item.name}
+              onPress={() => {
+                clickHandler(item, abilities);
+              }}>
+              {item.name}
+            </Text>
+          )}
+        />
+      )}
     </>
-  ) : (
-    <>
-      <Text>Search above, click result for detail view</Text>
-      <FlatList
-        data={abilities}
-        renderItem={({item}) => (
-          <Text
-            id={item.name}
-            onPress={() => {
-              clickHandler(item, abilities);
-            }}>
-            {item.name}
-          </Text>
-        )}
-      />
-    </>
-  );
+  )
 };
 export default List;
