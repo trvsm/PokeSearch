@@ -51,7 +51,7 @@ const Dictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
             </Text>
           )}
         />
-      ): <Text>No matches for that search</Text>}
+      ): <Text>No results to display</Text>}
     </>
   );
 };
