@@ -1,4 +1,4 @@
-import React, {SyntheticEvent, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, FlatList, Text} from 'react-native';
 const abilities = require('../../data/abilities.json');
 
@@ -11,9 +11,9 @@ const List: React.FC<Props> = ({searchTerm, clickHandler}) => {
   const [searchMatch, setSearchMatch] = useState<string[]>([]);
   const [showList, setShowList] = useState('none');
 
-  const listToggle=()=>{
-    showList ==='none'? setShowList('flex'):setShowList('none')
-  }
+  const listToggle = () => {
+    showList === 'none' ? setShowList('flex') : setShowList('none');
+  };
 
   useEffect(() => {
     if (searchTerm) {
@@ -25,7 +25,7 @@ const List: React.FC<Props> = ({searchTerm, clickHandler}) => {
       setSearchMatch(matches);
     }
   }, [searchTerm]);
-  return  (
+  return (
     <>
       <Text>Search above, click result for detail view</Text>
       <Button
@@ -33,6 +33,9 @@ const List: React.FC<Props> = ({searchTerm, clickHandler}) => {
         title="Show/Hide Ability List &#709;"></Button>
       {searchTerm ? (
         <FlatList
+          style={{
+            display: showList,
+          }}
           data={searchMatch}
           renderItem={({item}) => (
             <Text id={item.name} onPress={() => clickHandler(item, abilities)}>
@@ -58,6 +61,6 @@ const List: React.FC<Props> = ({searchTerm, clickHandler}) => {
         />
       )}
     </>
-  )
+  );
 };
 export default List;

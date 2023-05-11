@@ -23,6 +23,7 @@ import Search from './components/search/search';
 import List from './components/list/list';
 import currentVal from './helpers/textInputVal';
 import activeItem from './helpers/activeItem';
+import Dictionary from './components/dictionary/dictionary';
 
 mobileAds()
   .initialize()
@@ -74,6 +75,7 @@ function App(): JSX.Element {
             changeHandler={changeHandler}
           />
           <List searchTerm={abName} clickHandler={clickHandler} />
+          <Dictionary searchTerm={abName} clickHandler={clickHandler}/>
           <Text>Debug: ctrl+m or shake to show debug</Text>
         </View>
       </SafeAreaView>
