@@ -18,7 +18,6 @@ const Dictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
   useEffect(() => {
     if (searchTerm) {
       const reg = new RegExp(searchTerm, 'i');
-      console.log(reg);
       //TODO: refactor switch into function & debounce
       const matches = abilities.filter(ability => {
         let match;
@@ -41,9 +40,14 @@ const Dictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
   return (
     <>
       <Text>Results for search by effect:</Text>
-      <Button onPress={listToggle} title="Toggle 'by effect' results &#709;"></Button>
+      <Button
+        onPress={listToggle}
+        title="Toggle 'by effect' results &#709;"></Button>
       {searchMatch.length ? (
         <FlatList
+          style={{
+            display: showList,
+          }}
           data={searchMatch}
           renderItem={({item}) => (
             <Text id={item.name} onPress={() => clickHandler(item, abilities)}>
@@ -51,7 +55,9 @@ const Dictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
             </Text>
           )}
         />
-      ): <Text>No results to display</Text>}
+      ) : (
+        <Text>No results to display</Text>
+      )}
     </>
   );
 };

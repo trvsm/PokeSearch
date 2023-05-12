@@ -18,7 +18,6 @@ const List: React.FC<Props> = ({searchTerm, clickHandler}) => {
   useEffect(() => {
     if (searchTerm) {
       const reg = new RegExp(`^${searchTerm}`, 'i');
-      console.log(reg);
       const matches = abilities.filter(ability => {
         return ability.name.match(reg);
       });

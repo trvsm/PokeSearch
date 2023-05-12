@@ -60,13 +60,23 @@ function App(): JSX.Element {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           {activeAbility ? (
-            <Text>{`${activeAbility.name}: ${
-              activeAbility.effect_entries
-                ? activeAbility.effect_entries[0]?.language.name === 'en'
-                  ? activeAbility.effect_entries[0].effect
-                  : activeAbility.effect_entries[1].effect
-                : 'Effect details coming soon'
-            }`}</Text>
+            <>
+              <Text>{`${activeAbility.name}: ${
+                activeAbility.effect_entries
+                  ? activeAbility.effect_entries[0]?.language.name === 'en'
+                    ? activeAbility.effect_entries[0].effect
+                    : activeAbility.effect_entries[1].effect
+                  : 'Effect details coming soon'
+              }`}</Text>
+              <Text>
+                Pokemon with this ability:
+                {activeAbility.pokemon.map(pok => {
+                  return(
+                    `\n${pok.pokemon.name} ${pok.is_hidden ? '(hidden ability)' : ''}`
+                    )
+                })}
+              </Text>
+            </>
           ) : (
             <Text>Ability Details</Text>
           )}
@@ -75,7 +85,7 @@ function App(): JSX.Element {
             changeHandler={changeHandler}
           />
           <List searchTerm={abName} clickHandler={clickHandler} />
-          <Dictionary searchTerm={abName} clickHandler={clickHandler}/>
+          <Dictionary searchTerm={abName} clickHandler={clickHandler} />
           <Text>Debug: ctrl+m or shake to show debug</Text>
         </View>
       </SafeAreaView>
