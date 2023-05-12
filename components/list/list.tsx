@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, FlatList, Text} from 'react-native';
+import {Button, VirtualizedList, Text} from 'react-native';
 const abilities = require('../../data/abilities.json');
 
 interface Props {
@@ -30,33 +30,45 @@ const List: React.FC<Props> = ({searchTerm, clickHandler}) => {
       <Button
         onPress={listToggle}
         title="Show/Hide Ability List &#709;"></Button>
-      {searchTerm ? (
-        <FlatList
+      {searchMatch.length ? (
+        <VirtualizedList
           style={{
             display: showList,
+            padding: 10,
           }}
+          getItem={(searchMatch, i) => searchMatch[i]}
+          getItemCount={searchMatch => searchMatch.length}
           data={searchMatch}
-          renderItem={({item}) => (
-            <Text id={item.name} onPress={() => clickHandler(item, abilities)}>
-              {item.name}
-            </Text>
-          )}
+          renderItem={({item}) => {
+            return (
+              <Text
+                id={item.name}
+                onPress={() => clickHandler(item, abilities)}>
+                {item.name}
+              </Text>
+            );
+          }}
         />
       ) : (
-        <FlatList
+        <VirtualizedList
           style={{
             display: showList,
+            padding: 10,
           }}
           data={abilities}
-          renderItem={({item}) => (
-            <Text
-              id={item.name}
-              onPress={() => {
-                clickHandler(item, abilities);
-              }}>
-              {item.name}
-            </Text>
-          )}
+          getItem={(abilities, i) => abilities[i]}
+          getItemCount={abilities => abilities.length}
+          renderItem={({item}) => {
+            return (
+              <Text
+                id={item.name}
+                onPress={() => {
+                  clickHandler(item, abilities);
+                }}>
+                {item.name}
+              </Text>
+            );
+          }}
         />
       )}
     </>

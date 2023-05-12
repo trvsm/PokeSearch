@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Text,
   useColorScheme,
-  View,
+  View, ScrollView,
   NativeSyntheticEvent,
   TextInputChangeEventData,
 } from 'react-native';
@@ -55,7 +55,7 @@ function App(): JSX.Element {
         />
         <Header />
         <BannerAd size={BannerAdSize.LEADERBOARD} unitId={TestIds.BANNER} />
-        <View
+        <ScrollView
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
@@ -87,7 +87,7 @@ function App(): JSX.Element {
           <List searchTerm={abName} clickHandler={clickHandler} />
           <Dictionary searchTerm={abName} clickHandler={clickHandler} />
           <Text>Debug: ctrl+m or shake to show debug</Text>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     </ThemeContext.Provider>
   );
