@@ -6,7 +6,8 @@ import {
   StyleSheet,
   Text,
   useColorScheme,
-  View, ScrollView,
+  View,
+  ScrollView,
   NativeSyntheticEvent,
   TextInputChangeEventData,
 } from 'react-native';
@@ -24,6 +25,7 @@ import List from './components/list/list';
 import currentVal from './helpers/textInputVal';
 import activeItem from './helpers/activeItem';
 import Dictionary from './components/dictionary/dictionary';
+import Abilities from './pages/abilities';
 
 mobileAds()
   .initialize()
@@ -53,41 +55,8 @@ function App(): JSX.Element {
           barStyle={isDarkMode ? 'light-content' : 'dark-content'}
           backgroundColor={backgroundStyle.backgroundColor}
         />
-        <Header />
-        <BannerAd size={BannerAdSize.LEADERBOARD} unitId={TestIds.BANNER} />
-        <ScrollView
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          {activeAbility ? (
-            <>
-              <Text>{`${activeAbility.name}: ${
-                activeAbility.effect_entries
-                  ? activeAbility.effect_entries[0]?.language.name === 'en'
-                    ? activeAbility.effect_entries[0].effect
-                    : activeAbility.effect_entries[1].effect
-                  : 'Effect details coming soon'
-              }`}</Text>
-              <Text>
-                Pokemon with this ability:
-                {activeAbility.pokemon.map(pok => {
-                  return(
-                    `\n${pok.pokemon.name} ${pok.is_hidden ? '(hidden ability)' : ''}`
-                    )
-                })}
-              </Text>
-            </>
-          ) : (
-            <Text>Ability Details</Text>
-          )}
-          <Search
-            placeholder="Search for an ability by name"
-            changeHandler={changeHandler}
-          />
-          <List searchTerm={abName} clickHandler={clickHandler} />
-          <Dictionary searchTerm={abName} clickHandler={clickHandler} />
-          <Text>Debug: ctrl+m or shake to show debug</Text>
-        </ScrollView>
+        <Abilities />
+        <Text>Debug: ctrl+m or shake to show debug</Text>
       </SafeAreaView>
     </ThemeContext.Provider>
   );

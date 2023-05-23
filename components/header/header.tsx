@@ -1,8 +1,11 @@
 import React, {useContext} from 'react';
 import {Text} from 'react-native';
 import ThemeContext from '../../theme';
+interface Props {
+  title: string;
+}
 
-const Header = (): JSX.Element => {
+const Header = ({title}: Props): JSX.Element => {
   const {theme} = useContext(ThemeContext);
   return (
     <Text
@@ -11,7 +14,7 @@ const Header = (): JSX.Element => {
         backgroundColor: theme.colors.highlight,
         ...theme.textVariants['header'],
       }}>
-      PokeSearch: easily lookup abilities & more!
+      PokeSearch: {title ? title : 'easily lookup abilities & more!'}
     </Text>
   );
 };
