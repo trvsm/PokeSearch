@@ -40,11 +40,11 @@ const Abilities = (): JSX.Element => {
     <>
       <Header title="Abilities" />
       <BannerAd size={BannerAdSize.LEADERBOARD} unitId={TestIds.BANNER} />
-      <ScrollView
-        style={{
+      <ScrollView>
+        {/* // style={{
             //TODO: pass theme state to style
           backgroundColor: isDarkMode ? Colors.black : Colors.white,
-        }}>
+        }}> */}
         {activeAbility ? (
           <>
             <Text>{`${activeAbility.name}: ${

@@ -1,48 +1,31 @@
 import React, {useState} from 'react';
 import ThemeContext, {theme} from './theme';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {
   SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
   useColorScheme,
-  View,
-  ScrollView,
-  NativeSyntheticEvent,
-  TextInputChangeEventData,
 } from 'react-native';
-import mobileAds, {
-  BannerAd,
-  BannerAdSize,
-  TestIds,
-} from 'react-native-google-mobile-ads';
+//google admob
+import mobileAds from 'react-native-google-mobile-ads';
+// reaact navigation for routing
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+const Stack = createNativeStackNavigator();
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-
-import Header from './components/header/header';
-import Search from './components/search/search';
-import List from './components/list/list';
-import currentVal from './helpers/textInputVal';
-import activeItem from './helpers/activeItem';
-import Dictionary from './components/dictionary/dictionary';
+// Component & Page Imports
 import Abilities from './pages/abilities';
+import Home from './pages/home';
 
-mobileAds()
-  .initialize()
-  .then(adapterStatuses => {
-    console.log(adapterStatuses);
-  });
+// mobileAds()
+//   .initialize()
+//   .then(adapterStatuses => {
+//     console.log(adapterStatuses);
+//   });
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
-  const [abName, setAbName] = useState<string>('');
-  const [activeAbility, setActiveAbility] = useState();
-
-  const changeHandler = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-    setAbName(currentVal(e));
-  };
-  const clickHandler = (item, arr) => {
-    setActiveAbility(activeItem(item, arr));
-  };
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -50,14 +33,19 @@ function App(): JSX.Element {
 
   return (
     <ThemeContext.Provider value={{theme}}>
-      <SafeAreaView style={backgroundStyle}>
-        <StatusBar
-          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-          backgroundColor={backgroundStyle.backgroundColor}
-        />
-        <Abilities />
-        <Text>Debug: ctrl+m or shake to show debug</Text>
-      </SafeAreaView>
+        {/* <SafeAreaView style={backgroundStyle}>
+          <StatusBar
+            barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+            backgroundColor={backgroundStyle.backgroundColor}
+          /> */}
+      <NavigationContainer>
+          <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Abilities" component={Abilities} />
+          </Stack.Navigator>
+          {/* <Text>Debug: ctrl+m or shake to show debug</Text> */}
+      </NavigationContainer>
+        {/* </SafeAreaView> */}
     </ThemeContext.Provider>
   );
 }
