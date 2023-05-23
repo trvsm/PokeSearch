@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, VirualizedList, Text} from 'react-native';
+import {Button, VirtualizedList, Text} from 'react-native';
 const abilities = require('../../data/abilities.json');
 
 interface Props {
@@ -44,7 +44,7 @@ const Dictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
         onPress={listToggle}
         title="Toggle 'by effect' results &#709;"></Button>
       {searchMatch.length ? (
-        <VirualizedList
+        <VirtualizedList
           style={{
             display: showList,
             padding: 10,

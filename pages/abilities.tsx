@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   Text,
   ScrollView,
   NativeSyntheticEvent,
-  TextInputChangeEventData
+  TextInputChangeEventData,
 } from 'react-native';
 import mobileAds, {
   BannerAd,
   BannerAdSize,
   TestIds,
 } from 'react-native-google-mobile-ads';
+import ThemeContext from '../theme';
 
 import Header from '../components/header/header';
 import Search from '../components/search/search';
@@ -25,29 +26,31 @@ mobileAds()
   });
 
 const Abilities = (): JSX.Element => {
-      const [abName, setAbName] = useState<string>('');
-      const [activeAbility, setActiveAbility] = useState();
+  const [abName, setAbName] = useState<string>('');
+  const [activeAbility, setActiveAbility] = useState();
+  const {theme} = useContext(ThemeContext);
 
-      const changeHandler = (
-        e: NativeSyntheticEvent<TextInputChangeEventData>,
-      ) => {
-        setAbName(currentVal(e));
-      };
-      const clickHandler = (item, arr) => {
-        setActiveAbility(activeItem(item, arr));
-      };
+  const changeHandler = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+    setAbName(currentVal(e));
+  };
+  const clickHandler = (item, arr) => {
+    setActiveAbility(activeItem(item, arr));
+  };
   return (
     <>
       <Header title="Abilities" />
       <BannerAd size={BannerAdSize.LEADERBOARD} unitId={TestIds.BANNER} />
-      <ScrollView>
-        {/* // style={{
-            //TODO: pass theme state to style
-          backgroundColor: isDarkMode ? Colors.black : Colors.white,
-        }}> */}
+      <ScrollView
+        style={{
+          //TODO: pass theme state to style
+          backgroundColor: theme.colors.primary,
+        }}>
         {activeAbility ? (
           <>
-            <Text>{`${activeAbility.name}: ${
+            <Text
+              style={{
+                color: theme.colors.primary,
+              }}>{`${activeAbility.name}: ${
               activeAbility.effect_entries
                 ? activeAbility.effect_entries[0]?.language.name === 'en'
                   ? activeAbility.effect_entries[0].effect
@@ -72,10 +75,9 @@ const Abilities = (): JSX.Element => {
         />
         <List searchTerm={abName} clickHandler={clickHandler} />
         <Dictionary searchTerm={abName} clickHandler={clickHandler} />
-        
       </ScrollView>
     </>
   );
 };
 
-export default Abilities
+export default Abilities;

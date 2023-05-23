@@ -25,11 +25,11 @@ import Home from './pages/home';
 //     console.log(adapterStatuses);
 //   });
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  // const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  // const backgroundStyle = {
+  //   backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  // };
 
   return (
     <ThemeContext.Provider value={{theme}}>

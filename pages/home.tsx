@@ -1,10 +1,11 @@
 import {Button, Text, View} from 'react-native';
+import Header from '../components/header/header';
 
 function Home({navigation}): JSX.Element {
   return (
     <>
       <View>
-        <Text>Welcome to PokeSearch!</Text>
+        <Header />
         <Button
           title="Search Abilities"
           onPress={() => navigation.navigate('Abilities')}

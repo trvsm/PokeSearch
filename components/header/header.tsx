@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {Text} from 'react-native';
 import ThemeContext from '../../theme';
 interface Props {
-  title: string;
+  title: string|undefined;
 }
 
 const Header = ({title}: Props): JSX.Element => {
