@@ -18,10 +18,13 @@ const MoveDictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
   useEffect(() => {
     if (searchTerm) {
       const reg = new RegExp(searchTerm, 'i');
-      //TODO: refactor switch into function & debounce
+      //TODO: debounce
       const matches = moves.filter(move => {
-        let match = move.effect_entries[0].effect.match(reg);
-        return match;
+        let match = '';
+        match = move.effect_entries[0]?.effect.match(reg);
+        if (match) {
+          return match;
+        }
       });
       setSearchMatch(matches);
     }

@@ -3,6 +3,7 @@ import {
   Text,
   NativeSyntheticEvent,
   TextInputChangeEventData,
+  ScrollView,
 } from 'react-native';
 //theme styling
 import ThemeContext from '../theme';
@@ -31,24 +32,35 @@ const Moves = (): JSX.Element => {
   return (
     <>
       <Header title="Moves" />
-      <Text>
-        {`${activeMove.name}: ${
-          activeMove.effect_entries
-            ? activeMove.effect_entries[0].effect
-            : 'Effect details coming soon'
-        }`}
-      </Text>
-      <Text>
-        Pokemon that can learn:
-        {activeMove.learned_by_pokemon.map(pok => {
-          return `\n${pok.name}`;
-        })}
-      </Text>
-      <Search
-        placeholder="Search for a move by effet"
-        changeHandler={changeHandler}
-      />
-      <MoveDictionary searchTerm={moveSearch} clickHandler={clickHandler} />
+      <ScrollView
+        style={{
+          backgroundColor: theme.colors.primary,
+        }}>
+        {activeMove ? (
+          <>
+            <Text>
+              {`${activeMove.name}: ${
+                activeMove.effect_entries
+                  ? activeMove.effect_entries[0].effect
+                  : 'Effect details coming soon'
+              }`}
+            </Text>
+            <Text>
+              Pokemon that can learn:
+              {activeMove.learned_by_pokemon.map(pok => {
+                return `\n${pok.name}`;
+              })}
+            </Text>
+          </>
+        ) : (
+          <Text>Move Details</Text>
+        )}
+        <Search
+          placeholder="Search for a move by effect"
+          changeHandler={changeHandler}
+        />
+        <MoveDictionary searchTerm={moveSearch} clickHandler={clickHandler} />
+      </ScrollView>
     </>
   );
 };

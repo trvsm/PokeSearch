@@ -6,10 +6,14 @@ function Home({navigation}): JSX.Element {
   return (
     <>
       <View>
-        <Header />
+        <Header title="" />
         <Button
           title="Search Abilities"
           onPress={() => navigation.navigate('Abilities')}
+        />
+        <Button
+          title="Search Moves"
+          onPress={() => navigation.navigate('Moves')}
         />
       </View>
     </>
