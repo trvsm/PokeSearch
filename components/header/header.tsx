@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {Text} from 'react-native';
 import ThemeContext from '../../theme';
 interface Props {
-  title: string|undefined;
+  title: string | undefined;
 }
 
 const Header = ({title}: Props): JSX.Element => {
@@ -12,7 +12,7 @@ const Header = ({title}: Props): JSX.Element => {
       style={{
         color: theme.colors.background,
         backgroundColor: theme.colors.highlight,
-        ...theme.textVariants['header'],
+        ...theme.textVariants.header,
       }}>
       PokeSearch: {title ? title : 'easily lookup abilities & more!'}
     </Text>

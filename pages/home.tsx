@@ -1,4 +1,5 @@
-import {Button, Text, View} from 'react-native';
+import React from 'react';
+import {Button, View} from 'react-native';
 import Header from '../components/header/header';
 
 function Home({navigation}): JSX.Element {

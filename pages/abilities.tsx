@@ -5,25 +5,16 @@ import {
   NativeSyntheticEvent,
   TextInputChangeEventData,
 } from 'react-native';
-import mobileAds, {
-  BannerAd,
-  BannerAdSize,
-  TestIds,
-} from 'react-native-google-mobile-ads';
+//theme styling
 import ThemeContext from '../theme';
-
+//component imports
+import Dictionary from '../components/dictionary/dictionary';
 import Header from '../components/header/header';
-import Search from '../components/search/search';
 import List from '../components/list/list';
+import Search from '../components/search/search';
+//helper function imports
 import currentVal from '../helpers/textInputVal';
 import activeItem from '../helpers/activeItem';
-import Dictionary from '../components/dictionary/dictionary';
-
-mobileAds()
-  .initialize()
-  .then(adapterStatuses => {
-    console.log(adapterStatuses);
-  });
 
 const Abilities = (): JSX.Element => {
   const [abName, setAbName] = useState<string>('');
@@ -39,17 +30,15 @@ const Abilities = (): JSX.Element => {
   return (
     <>
       <Header title="Abilities" />
-      <BannerAd size={BannerAdSize.LEADERBOARD} unitId={TestIds.BANNER} />
       <ScrollView
         style={{
-          //TODO: pass theme state to style
           backgroundColor: theme.colors.primary,
         }}>
         {activeAbility ? (
           <>
             <Text
               style={{
-                color: theme.colors.primary,
+                color: theme.colors.background,
               }}>{`${activeAbility.name}: ${
               activeAbility.effect_entries
                 ? activeAbility.effect_entries[0]?.language.name === 'en'

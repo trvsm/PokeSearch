@@ -1,4 +1,3 @@
-
 const palette = {
   gray: '#57575a',
   licorice: '#2b1c1e',
@@ -10,29 +9,28 @@ const palette = {
 };
 
 export const theme = {
-    colors: {
+  colors: {
     background: palette.white,
     foreground: palette.licorice,
     primary: palette.jet,
     highlight: palette.vermillion,
-},
+  },
 
-spacing: {
+  spacing: {
     s: 8,
     m: 16,
     l: 24,
     xl: 40,
-},
+  },
 
-textVariants:{
+  textVariants: {
     header: {
-        fontSize: 36,
-        fontWeight: "bold"
-    }
-}
+      fontSize: 36,
+      fontWeight: 'bold',
+    },
+  },
 };
 
-import React, {createContext} from "react";
-import { StyleProp, TextStyle } from "react-native/types";
+import {createContext} from 'react';
 const ThemeContext = createContext({theme});
-export default ThemeContext
+export default ThemeContext;

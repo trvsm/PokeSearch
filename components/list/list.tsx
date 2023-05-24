@@ -27,17 +27,15 @@ const List: React.FC<Props> = ({searchTerm, clickHandler}) => {
   return (
     <>
       <Text>Search above, click result for detail view</Text>
-      <Button
-        onPress={listToggle}
-        title="Show/Hide Ability List &#709;"></Button>
+      <Button onPress={listToggle} title="Show/Hide Ability List &#709;" />
       {searchMatch.length ? (
         <VirtualizedList
           style={{
             display: showList,
             padding: 10,
           }}
-          getItem={(searchMatch, i) => searchMatch[i]}
-          getItemCount={searchMatch => searchMatch.length}
+          getItem={(item, i) => item[i]}
+          getItemCount={item => item.length}
           data={searchMatch}
           renderItem={({item}) => {
             return (
@@ -56,8 +54,8 @@ const List: React.FC<Props> = ({searchTerm, clickHandler}) => {
             padding: 10,
           }}
           data={abilities}
-          getItem={(abilities, i) => abilities[i]}
-          getItemCount={abilities => abilities.length}
+          getItem={(item, i) => item[i]}
+          getItemCount={item => item.length}
           renderItem={({item}) => {
             return (
               <Text

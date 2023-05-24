@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {Button, VirtualizedList, Text} from 'react-native';
-import abilities from '../../data/abilities.json';
+const moves = require('../../data/moves.json');
 
 interface Props {
   searchTerm: string;
   clickHandler: Function;
 }
 
-const Dictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
+const MoveDictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
   const [searchMatch, setSearchMatch] = useState<string[]>([]);
   const [showList, setShowList] = useState('none');
 
@@ -19,19 +19,8 @@ const Dictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
     if (searchTerm) {
       const reg = new RegExp(searchTerm, 'i');
       //TODO: refactor switch into function & debounce
-      const matches = abilities.filter(ability => {
-        let match;
-        switch (ability.effect_entries.length) {
-          case 2:
-            match = ability.effect_entries[1].effect.match(reg);
-            break;
-          case 1:
-            match = ability.effect_entries[0].effect.match(reg);
-            break;
-
-          default:
-            break;
-        }
+      const matches = moves.filter(move => {
+        let match = move.effect_entries[0].effect.match(reg);
         return match;
       });
       setSearchMatch(matches);
@@ -48,14 +37,14 @@ const Dictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
             padding: 10,
           }}
           data={searchMatch}
-          getItem={(item, i) => item[i]}
-          getItemCount={item => item.length}
+          getItem={(ittem, i) => ittem[i]}
+          getItemCount={ittem => ittem.length}
           renderItem={({item}) => {
             return (
               <Text
                 id={item.name}
                 onPress={() => {
-                  clickHandler(item, abilities);
+                  clickHandler(item, moves);
                 }}>
                 {item.name}
               </Text>
@@ -68,4 +57,4 @@ const Dictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
     </>
   );
 };
-export default Dictionary;
+export default MoveDictionary;
