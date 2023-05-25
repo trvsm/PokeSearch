@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ThemeContext, {theme} from './theme';
 // google admob
 import mobileAds, {
@@ -15,6 +15,7 @@ const Stack = createNativeStackNavigator();
 import Abilities from './pages/abilities';
 import Home from './pages/home';
 import Moves from './pages/moves';
+import TeamBuilder from './pages/teamBuild';
 
 mobileAds()
   .initialize()
@@ -22,6 +23,7 @@ mobileAds()
     console.log(adapterStatuses);
   });
 function App(): JSX.Element {
+
   // const isDarkMode = useColorScheme() === 'dark';
 
   // const backgroundStyle = {
@@ -38,9 +40,10 @@ function App(): JSX.Element {
       <BannerAd size={BannerAdSize.LEADERBOARD} unitId={TestIds.BANNER} />
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Abilities" component={Abilities} />
+          <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Moves" component={Moves} />
+          <Stack.Screen name="TeamBuilder" component={TeamBuilder} />
         </Stack.Navigator>
         {/* <Text>Debug: ctrl+m or shake to show debug</Text> */}
       </NavigationContainer>
