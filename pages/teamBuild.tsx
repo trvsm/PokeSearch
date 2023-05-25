@@ -33,14 +33,21 @@ const TeamBuilder = (): JSX.Element => {
   return (
     <>
       <Header title="Team Builder" />
-      <Header title={Object.keys(team).length ? team.name : ''} />
+      <Header
+        title={Object.keys(team).length ? team.name : 'Display team member'}
+      />
       {/* six slots */}
       {/* search function by pokemon name */}
-      <Search
-        placeholder="Search for a Pokemon by name"
-        changeHandler={changeHandler}
-      />
-      <PokDictionary searchTerm={pokSearch} clickHandler={clickHandler} />
+      <ScrollView
+        style={{
+          backgroundColor: theme.colors.primary,
+        }}>
+        <Search
+          placeholder="Search for a Pokemon by name"
+          changeHandler={changeHandler}
+        />
+        <PokDictionary searchTerm={pokSearch} clickHandler={clickHandler} />
+      </ScrollView>
     </>
   );
 };

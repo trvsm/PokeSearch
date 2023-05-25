@@ -33,7 +33,6 @@ function App(): JSX.Element {
 
   return (
     <ThemeContext.Provider value={{theme}}>
-      <SafeAreaView/>
       {/* <SafeAreaView style={backgroundStyle}>
           <StatusBar
             barStyle={isDarkMode ? 'light-content' : 'dark-content'}
@@ -49,7 +48,7 @@ function App(): JSX.Element {
         </Stack.Navigator>
         {/* <Text>Debug: ctrl+m or shake to show debug</Text> */}
       </NavigationContainer>
-      </SafeAreaView>
+      {/* </SafeAreaView> */}
     </ThemeContext.Provider>
   );
 }

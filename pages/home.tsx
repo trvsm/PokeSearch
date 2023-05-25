@@ -15,6 +15,10 @@ function Home({navigation}): JSX.Element {
           title="Search Moves"
           onPress={() => navigation.navigate('Moves')}
         />
+        <Button
+          title="Team Builder"
+          onPress={() => navigation.navigate('TeamBuilder')}
+        />
       </View>
     </>
   );
