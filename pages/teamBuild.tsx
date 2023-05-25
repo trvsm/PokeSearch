@@ -13,10 +13,11 @@ import Search from '../components/search/search';
 //helper function imports
 import currentVal from '../helpers/textInputVal';
 import activeItem from '../helpers/activeItem';
+import PokDictionary from '../components/pokDictionary/pokDictionary';
 
 const TeamBuilder = (): JSX.Element => {
   //state for team move TODO: move to app level, create context or pass listeners
-  const [team, setTeam] = useState([]);
+  const [team, setTeam] = useState({});
   //state for search term by pokemon name
   const [pokSearch, setPokSearch] = useState<string>('');
   const {theme} = useContext(ThemeContext);
@@ -32,12 +33,14 @@ const TeamBuilder = (): JSX.Element => {
   return (
     <>
       <Header title="Team Builder" />
+      <Header title={Object.keys(team).length ? team.name : ''} />
       {/* six slots */}
       {/* search function by pokemon name */}
       <Search
         placeholder="Search for a Pokemon by name"
         changeHandler={changeHandler}
       />
+      <PokDictionary searchTerm={pokSearch} clickHandler={clickHandler} />
     </>
   );
 };
