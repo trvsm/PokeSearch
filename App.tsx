@@ -16,6 +16,7 @@ import Abilities from './pages/abilities';
 import Home from './pages/home';
 import Moves from './pages/moves';
 import TeamBuilder from './pages/teamBuild';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 mobileAds()
   .initialize()
@@ -32,6 +33,7 @@ function App(): JSX.Element {
 
   return (
     <ThemeContext.Provider value={{theme}}>
+      <SafeAreaView/>
       {/* <SafeAreaView style={backgroundStyle}>
           <StatusBar
             barStyle={isDarkMode ? 'light-content' : 'dark-content'}
@@ -47,7 +49,7 @@ function App(): JSX.Element {
         </Stack.Navigator>
         {/* <Text>Debug: ctrl+m or shake to show debug</Text> */}
       </NavigationContainer>
-      {/* </SafeAreaView> */}
+      </SafeAreaView>
     </ThemeContext.Provider>
   );
 }
