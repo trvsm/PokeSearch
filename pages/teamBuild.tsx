@@ -19,6 +19,12 @@ import activeItem from '../helpers/activeItem';
 
 const slots = [1, 2, 3, 4, 5, 6];
 
+//presshandler to open modal populated with pressed pokemon
+const pressHandler = itemNum => {
+  //currently gets number of team pressed, use this to open modal for corresponding
+  console.log(itemNum);
+};
+
 const TeamBuilder = (): JSX.Element => {
   //state for team move TODO: move to app level, create context or pass listeners
   const [team, setTeam] = useState<Object[]>([]);
@@ -30,7 +36,6 @@ const TeamBuilder = (): JSX.Element => {
     setPokSearch(currentVal(e));
   };
   const clickHandler = (item, arr) => {
-    //TODO: update so this spreads active item into team
     if (team.length < 6) {
       setTeam([...team, activeItem(item, arr)]);
     } else if (team.length === 6) {
@@ -49,14 +54,24 @@ const TeamBuilder = (): JSX.Element => {
         style={{
           backgroundColor: theme.colors.primary,
         }}>
+        {/* six slots */}
         {slots.map(slot => {
           return team[slot] ? (
-            <Slot pokemon={team[slot]} number={slot}/>
+            <Slot
+              key={slot}
+              pokemon={team[slot]}
+              number={slot}
+              pressHandler={pressHandler}
+            />
           ) : (
-            <Slot pokemon={null} number={slot}/>
+            <Slot
+              key={slot}
+              pokemon={null}
+              number={slot}
+              pressHandler={pressHandler}
+            />
           );
         })}
-        {/* six slots */}
         {/* search function by pokemon name */}
         <Search
           placeholder="Search for a Pokemon by name"
