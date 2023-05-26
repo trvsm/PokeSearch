@@ -10,11 +10,14 @@ import {
 import ThemeContext from '../theme';
 //component imports
 import Header from '../components/header/header';
+import PokDictionary from '../components/pokDictionary/pokDictionary';
 import Search from '../components/search/search';
+import Slot from '../components/slot/slot';
 //helper function imports
 import currentVal from '../helpers/textInputVal';
 import activeItem from '../helpers/activeItem';
-import PokDictionary from '../components/pokDictionary/pokDictionary';
+
+const slots = [1, 2, 3, 4, 5, 6];
 
 const TeamBuilder = (): JSX.Element => {
   //state for team move TODO: move to app level, create context or pass listeners
@@ -46,15 +49,15 @@ const TeamBuilder = (): JSX.Element => {
         style={{
           backgroundColor: theme.colors.primary,
         }}>
-      {team.length ? (
-        team.map(member => {
-          return <Header title={member.name} />;
-        })
-      ) : (
-        <Text>Add team members to display</Text>
-      )}
-      {/* six slots */}
-      {/* search function by pokemon name */}
+        {slots.map(slot => {
+          return team[slot] ? (
+            <Slot pokemon={team[slot]} number={slot}/>
+          ) : (
+            <Slot pokemon={null} number={slot}/>
+          );
+        })}
+        {/* six slots */}
+        {/* search function by pokemon name */}
         <Search
           placeholder="Search for a Pokemon by name"
           changeHandler={changeHandler}

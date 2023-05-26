@@ -8,13 +8,24 @@ import {
 //theme styling
 import ThemeContext from '../../theme';
 
+interface Props {
+  pokemon: {} | null;
+  number: Number
+}
+
 //will take props to tell it what pokemon in this slot
-const Slot = (): JSX.Element => {
+const Slot: React.FC<Props> = ({pokemon, number}) => {
   const {theme} = useContext(ThemeContext);
 
-  return(
-    <>
-    {pokemon?<Text>Selected Pokemon</Text> :<Text>Choose a Pokemon to fill this slot!</Text>}
+  return (
+    <><Text>{number}:</Text>
+      {pokemon ? (
+        <Text>Selected Pokemon: {pokemon.name}</Text>
+      ) : (
+        <Text>Choose a Pokemon!</Text>
+      )}
     </>
-  )
+  );
 };
+
+export default Slot;
