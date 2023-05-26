@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import ThemeContext, {theme} from './theme';
 // google admob
 import mobileAds, {
@@ -16,7 +16,6 @@ import Abilities from './pages/abilities';
 import Home from './pages/home';
 import Moves from './pages/moves';
 import TeamBuilder from './pages/teamBuild';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 mobileAds()
   .initialize()
@@ -24,7 +23,6 @@ mobileAds()
     console.log(adapterStatuses);
   });
 function App(): JSX.Element {
-
   // const isDarkMode = useColorScheme() === 'dark';
 
   // const backgroundStyle = {
