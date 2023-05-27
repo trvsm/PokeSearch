@@ -7,6 +7,7 @@ import {
   Modal,
   View,
   Text,
+  Button,
 } from 'react-native';
 //theme styling
 import ThemeContext from '../theme';
@@ -57,13 +58,18 @@ const TeamBuilder = (): JSX.Element => {
     <>
       <Header title="Team Builder" />
       <Modal
+     
         visible={modalOpen}
         onRequestClose={() => {
           setModalOpen(!modalOpen);
         }}>
         {editMember ? (
-          <View>
+          <View
+           style={{
+          backgroundColor: theme.colors.primary,
+        }}>
             <Text>{team[editMember].name}</Text>
+            <Button title='Close' onPress={()=>{setModalOpen(!modalOpen)}}/>
           </View>
         ) : (
           ''
