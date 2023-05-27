@@ -4,6 +4,9 @@ import {
   TextInputChangeEventData,
   ScrollView,
   Alert,
+  Modal,
+  View,
+  Text,
 } from 'react-native';
 //theme styling
 import ThemeContext from '../theme';
@@ -18,19 +21,23 @@ import activeItem from '../helpers/activeItem';
 
 const slots = [1, 2, 3, 4, 5, 6];
 
-//presshandler to open modal populated with pressed pokemon
-const pressHandler = itemNum => {
-  //currently gets number of team pressed, use this to open modal for corresponding
-  console.log(itemNum);
-};
-
 const TeamBuilder = (): JSX.Element => {
   //state for team move TODO: move to app level, create context or pass listeners
   const [team, setTeam] = useState<Object[]>([]);
   //state for search term by pokemon name
   const [pokSearch, setPokSearch] = useState<string>('');
+  //state to handle modal display
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  // state for current pokemon to edit
+  const [editMember, setEditMember] = useState<number>();
   const {theme} = useContext(ThemeContext);
 
+  //presshandler to open modal populated with pressed pokemon
+  const pressHandler = itemNum => {
+    //currently gets number of team pressed, use this to open modal for corresponding
+    setEditMember(itemNum);
+    setModalOpen(!modalOpen);
+  };
   const changeHandler = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
     setPokSearch(currentVal(e));
   };
@@ -49,6 +56,19 @@ const TeamBuilder = (): JSX.Element => {
   return (
     <>
       <Header title="Team Builder" />
+      <Modal
+        visible={modalOpen}
+        onRequestClose={() => {
+          setModalOpen(!modalOpen);
+        }}>
+        {editMember ? (
+          <View>
+            <Text>{team[editMember].name}</Text>
+          </View>
+        ) : (
+          ''
+        )}
+      </Modal>
       <ScrollView
         style={{
           backgroundColor: theme.colors.primary,
