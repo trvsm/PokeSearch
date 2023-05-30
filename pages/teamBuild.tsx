@@ -19,6 +19,7 @@ import Slot from '../components/slot/slot';
 //helper function imports
 import currentVal from '../helpers/textInputVal';
 import activeItem from '../helpers/activeItem';
+import MonDetail from '../components/monDetail/monDetail';
 
 const slots = [1, 2, 3, 4, 5, 6];
 
@@ -58,18 +59,35 @@ const TeamBuilder = (): JSX.Element => {
     <>
       <Header title="Team Builder" />
       <Modal
-     
         visible={modalOpen}
         onRequestClose={() => {
           setModalOpen(!modalOpen);
         }}>
         {editMember ? (
           <View
-           style={{
-          backgroundColor: theme.colors.primary,
-        }}>
+            style={{
+              backgroundColor: theme.colors.primary,
+            }}>
             <Text>{team[editMember].name}</Text>
-            <Button title='Close' onPress={()=>{setModalOpen(!modalOpen)}}/>
+            <MonDetail
+              teamMember={team[editMember]}
+              feature={team[editMember].abilities}
+            />
+              <MonDetail
+                teamMember={team[editMember]}
+                feature={team[editMember].stats}
+              />
+            <MonDetail
+              teamMember={team[editMember]}
+              feature={team[editMember].types}
+            />
+            {/* TODO: add fields for ability, nature & moves, show stats & types */}
+            <Button
+              title="Close"
+              onPress={() => {
+                setModalOpen(!modalOpen);
+              }}
+            />
           </View>
         ) : (
           ''
