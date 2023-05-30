@@ -1,7 +1,7 @@
 import React, {useState, useContext} from 'react';
 import {
   Text,
-  ScrollView,
+  View,
   NativeSyntheticEvent,
   TextInputChangeEventData,
 } from 'react-native';
@@ -30,7 +30,7 @@ const Abilities = (): JSX.Element => {
   return (
     <>
       <Header title="Abilities" />
-      <ScrollView
+      <View
         style={{
           backgroundColor: theme.colors.primary,
         }}>
@@ -64,7 +64,7 @@ const Abilities = (): JSX.Element => {
         />
         <List searchTerm={abName} clickHandler={clickHandler} />
         <Dictionary searchTerm={abName} clickHandler={clickHandler} />
-      </ScrollView>
+      </View>
     </>
   );
 };

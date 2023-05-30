@@ -3,7 +3,7 @@ import {
   Text,
   NativeSyntheticEvent,
   TextInputChangeEventData,
-  ScrollView,
+  View,
 } from 'react-native';
 //theme styling
 import ThemeContext from '../theme';
@@ -32,7 +32,7 @@ const Moves = (): JSX.Element => {
   return (
     <>
       <Header title="Moves" />
-      <ScrollView
+      <View
         style={{
           backgroundColor: theme.colors.primary,
         }}>
@@ -60,7 +60,7 @@ const Moves = (): JSX.Element => {
           changeHandler={changeHandler}
         />
         <MoveDictionary searchTerm={moveSearch} clickHandler={clickHandler} />
-      </ScrollView>
+      </View>
     </>
   );
 };

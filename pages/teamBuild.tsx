@@ -2,7 +2,6 @@ import React, {useContext, useState} from 'react';
 import {
   NativeSyntheticEvent,
   TextInputChangeEventData,
-  ScrollView,
   Alert,
   Modal,
   View,
@@ -19,7 +18,7 @@ import Slot from '../components/slot/slot';
 //helper function imports
 import currentVal from '../helpers/textInputVal';
 import activeItem from '../helpers/activeItem';
-import MonDetail from '../components/monDetail/monDetail';
+import MonDet from '../components/monDetail/monDetail';
 
 const slots = [1, 2, 3, 4, 5, 6];
 
@@ -69,18 +68,12 @@ const TeamBuilder = (): JSX.Element => {
               backgroundColor: theme.colors.primary,
             }}>
             <Text>{team[editMember].name}</Text>
-            <MonDetail
-              teamMember={team[editMember]}
-              feature={team[editMember].abilities}
+            <MonDet
+              member={team[editMember]}
+              feat={team[editMember].abilities}
             />
-              <MonDetail
-                teamMember={team[editMember]}
-                feature={team[editMember].stats}
-              />
-            <MonDetail
-              teamMember={team[editMember]}
-              feature={team[editMember].types}
-            />
+            <MonDet member={team[editMember]} feat={team[editMember].stats} />
+            <MonDet member={team[editMember]} feat={team[editMember].types} />
             {/* TODO: add fields for ability, nature & moves, show stats & types */}
             <Button
               title="Close"
@@ -93,7 +86,7 @@ const TeamBuilder = (): JSX.Element => {
           ''
         )}
       </Modal>
-      <ScrollView
+      <View
         style={{
           backgroundColor: theme.colors.primary,
         }}>
@@ -121,7 +114,7 @@ const TeamBuilder = (): JSX.Element => {
           changeHandler={changeHandler}
         />
         <PokDictionary searchTerm={pokSearch} clickHandler={clickHandler} />
-      </ScrollView>
+      </View>
     </>
   );
 };
