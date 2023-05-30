@@ -12,31 +12,34 @@ import {
 import ThemeContext from '../theme';
 //component imports
 import Header from '../components/header/header';
+import MonDet from '../components/monDetail/monDetail';
 import PokDictionary from '../components/pokDictionary/pokDictionary';
 import Search from '../components/search/search';
 import Slot from '../components/slot/slot';
 //helper function imports
 import currentVal from '../helpers/textInputVal';
 import activeItem from '../helpers/activeItem';
-import MonDet from '../components/monDetail/monDetail';
+import MoveSlot from '../components/moveSlot/moveSlot';
 
 const slots = [1, 2, 3, 4, 5, 6];
 
 const TeamBuilder = (): JSX.Element => {
   //state for team move TODO: move to app level, create context or pass listeners
-  const [team, setTeam] = useState<Object[]>([]);
+  const [team, setTeam] = useState<object[]>([]);
   //state for search term by pokemon name
   const [pokSearch, setPokSearch] = useState<string>('');
   //state to handle modal display
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   // state for current pokemon to edit
-  const [editMember, setEditMember] = useState<number>();
+  const [editMember, setEditMember] = useState<Object>();
   const {theme} = useContext(ThemeContext);
 
   //presshandler to open modal populated with pressed pokemon
-  const pressHandler = itemNum => {
+  const pressHandler = (itemNum: number) => {
     //currently gets number of team pressed, use this to open modal for corresponding
-    setEditMember(itemNum);
+
+    //change: access the particular team member here & set that member to state.  could make it easier to edit moves!
+    setEditMember(team[itemNum]);
     setModalOpen(!modalOpen);
   };
   const changeHandler = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
@@ -67,14 +70,20 @@ const TeamBuilder = (): JSX.Element => {
             style={{
               backgroundColor: theme.colors.primary,
             }}>
-            <Text>{team[editMember].name}</Text>
-            <MonDet
-              member={team[editMember]}
-              feat={team[editMember].abilities}
-            />
-            <MonDet member={team[editMember]} feat={team[editMember].stats} />
-            <MonDet member={team[editMember]} feat={team[editMember].types} />
-            {/* TODO: add fields for ability, nature & moves, show stats & types */}
+            <Text>{editMember.name}</Text>
+            <MonDet member={editMember} feat={editMember.abilities} />
+            <MonDet member={editMember} feat={editMember.stats} />
+            <MonDet member={editMember} feat={editMember.types} />
+            {/* TODO: add fields for nature & moves*/}
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: "space-evenly"
+              }}>
+              {[1, 2, 3, 4].map(n => {
+                return <MoveSlot member={editMember} num={n} />;
+              })}
+            </View>
             <Button
               title="Close"
               onPress={() => {
