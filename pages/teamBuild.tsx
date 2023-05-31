@@ -24,6 +24,7 @@ import MoveSlot from '../components/moveSlot/moveSlot';
 const slots = [1, 2, 3, 4, 5, 6];
 
 const TeamBuilder = (): JSX.Element => {
+  // TODO: save team using async storage: https://react-native-async-storage.github.io/async-storage/docs/install/
   //state for team move TODO: move to app level, create context or pass listeners
   const [team, setTeam] = useState<object[]>([]);
   //state for search term by pokemon name
@@ -69,6 +70,7 @@ const TeamBuilder = (): JSX.Element => {
           <View
             style={{
               backgroundColor: theme.colors.primary,
+              height: '100vh',
             }}>
             <Text>{editMember.name}</Text>
             <MonDet member={editMember} feat={editMember.abilities} />
@@ -78,7 +80,7 @@ const TeamBuilder = (): JSX.Element => {
             <View
               style={{
                 flexDirection: 'row',
-                justifyContent: "space-evenly"
+                justifyContent: 'space-evenly',
               }}>
               {[1, 2, 3, 4].map(n => {
                 return <MoveSlot member={editMember} num={n} />;

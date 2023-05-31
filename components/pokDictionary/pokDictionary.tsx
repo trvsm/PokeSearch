@@ -41,8 +41,8 @@ const PokDictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
             padding: 10,
           }}
           data={searchMatch}
-          getItem={(ittem, i) => ittem[i]}
-          getItemCount={ittem => ittem.length}
+          getItem={(item, i) => item[i]}
+          getItemCount={item => item.length}
           renderItem={({item}) => {
             return (
               <Text
