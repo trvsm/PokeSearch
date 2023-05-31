@@ -27,7 +27,11 @@ const List: React.FC<Props> = ({searchTerm, clickHandler}) => {
   return (
     <>
       <Text>Search above, click result for detail view</Text>
-      <Button onPress={listToggle} title="Show/Hide Ability List &#709;" />
+      <Button
+        color="#666"
+        onPress={listToggle}
+        title="Show/Hide Ability List &#709;"
+      />
       {searchMatch.length ? (
         <VirtualizedList
           style={{

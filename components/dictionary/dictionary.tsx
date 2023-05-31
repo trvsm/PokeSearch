@@ -40,7 +40,11 @@ const Dictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
   return (
     <>
       <Text>Results for search by effect:</Text>
-      <Button onPress={listToggle} title="Toggle 'by effect' results &#709;" />
+      <Button
+        color="#666"
+        onPress={listToggle}
+        title="Toggle 'by effect' results &#709;"
+      />
       {searchMatch.length ? (
         <VirtualizedList
           style={{

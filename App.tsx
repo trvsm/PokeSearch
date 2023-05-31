@@ -52,14 +52,17 @@ function App(): JSX.Element {
             headerRight: () => (
               <>
                 <Button
+                  color="#666"
                   title="Abilities"
                   onPress={() => navigation.navigate('Abilities')}
                 />
                 <Button
+                  color="#666"
                   title="Moves"
                   onPress={() => navigation.navigate('Moves')}
                 />
                 <Button
+                  color="#666"
                   title="Team Builder"
                   onPress={() => navigation.navigate('TeamBuilder')}
                 />

@@ -4,6 +4,7 @@ import {
   View,
   NativeSyntheticEvent,
   TextInputChangeEventData,
+  FlatList,
 } from 'react-native';
 //theme styling
 import ThemeContext from '../theme';
@@ -15,6 +16,7 @@ import Search from '../components/search/search';
 //helper function imports
 import currentVal from '../helpers/textInputVal';
 import activeItem from '../helpers/activeItem';
+import Separator from '../components/separator/separator';
 
 const Abilities = (): JSX.Element => {
   const [abName, setAbName] = useState<string>('');
@@ -34,36 +36,51 @@ const Abilities = (): JSX.Element => {
         style={{
           backgroundColor: theme.colors.primary,
         }}>
-        {activeAbility ? (
-          <>
-            <Text
-              style={{
-                color: theme.colors.background,
-              }}>{`${activeAbility.name}: ${
-              activeAbility.effect_entries
-                ? activeAbility.effect_entries[0]?.language.name === 'en'
-                  ? activeAbility.effect_entries[0].effect
-                  : activeAbility.effect_entries[1].effect
-                : 'Effect details coming soon'
-            }`}</Text>
-            <Text>
-              Pokemon with this ability:
-              {activeAbility.pokemon.map(pok => {
-                return `\n${pok.pokemon.name} ${
-                  pok.is_hidden ? '(hidden ability)' : ''
-                }`;
-              })}
-            </Text>
-          </>
-        ) : (
-          <Text>Ability Details</Text>
-        )}
+        <View style={{padding: 8, height: '28%'}}>
+          {activeAbility ? (
+            <>
+              <Text
+                style={{
+                  color: theme.colors.background,
+                }}>{`${activeAbility.name}: ${
+                activeAbility.effect_entries
+                  ? activeAbility.effect_entries[0]?.language.name === 'en'
+                    ? activeAbility.effect_entries[0].effect
+                    : activeAbility.effect_entries[1].effect
+                  : 'Effect details coming soon'
+              }`}</Text>
+              <Separator />
+              <Text>Pokemon with this ability:</Text>
+              <FlatList
+                data={activeAbility.pokemon}
+                renderItem={({item}) => {
+                  return (
+                    <Text>{`${item.pokemon.name} ${
+                      item.is_hidden ? '(hidden ability)' : ''
+                    }`}</Text>
+                  );
+                }}
+              />
+            </>
+          ) : (
+            <Text>Ability Details</Text>
+          )}
+        </View>
         <Search
-          placeholder="Search for an ability by name"
+          placeholder="&#10067; Search for an ability by name or effect"
           changeHandler={changeHandler}
         />
-        <List searchTerm={abName} clickHandler={clickHandler} />
-        <Dictionary searchTerm={abName} clickHandler={clickHandler} />
+        <Separator />
+        <View
+          style={{
+            padding: 8,
+            height: '28%',
+          }}>
+          <List searchTerm={abName} clickHandler={clickHandler} />
+        </View>
+        <View style={{padding: 8, height: '28%'}}>
+          <Dictionary searchTerm={abName} clickHandler={clickHandler} />
+        </View>
       </View>
     </>
   );
