@@ -1,5 +1,6 @@
 import React from 'react';
 import ThemeContext, {theme} from './theme';
+import {Button} from 'react-native';
 // google admob
 import mobileAds, {
   BannerAd,
@@ -38,7 +39,33 @@ function App(): JSX.Element {
           /> */}
       <BannerAd size={BannerAdSize.LEADERBOARD} unitId={TestIds.BANNER} />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator
+          initialRouteName="Home"
+          screenOptions={({navigation}) => ({
+            headerStyle: {
+              backgroundColor: '#333',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerRight: () => (
+              <>
+                <Button
+                  title="Abilities"
+                  onPress={() => navigation.navigate('Abilities')}
+                />
+                <Button
+                  title="Moves"
+                  onPress={() => navigation.navigate('Moves')}
+                />
+                <Button
+                  title="Team Builder"
+                  onPress={() => navigation.navigate('TeamBuilder')}
+                />
+              </>
+            ),
+          })}>
           <Stack.Screen name="Abilities" component={Abilities} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Moves" component={Moves} />
