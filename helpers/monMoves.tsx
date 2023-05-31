@@ -9,7 +9,7 @@ const moveNames =[]
 learnedMoves.forEach((longMove)=>{
     moveNames.push(longMove.name)
 })
-  return moveNames;
+  return moveNames.sort();
 };
 
 export default monMoves;

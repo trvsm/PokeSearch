@@ -75,7 +75,7 @@ const TeamBuilder = (): JSX.Element => {
             <MonDet member={editMember} feat={editMember.abilities} />
             <MonDet member={editMember} feat={editMember.stats} />
             <MonDet member={editMember} feat={editMember.types} />
-            {/* TODO: add fields for nature & moves*/}
+            {/* TODO: add field for nature*/}
             <View
               style={{
                 flexDirection: 'row',
