@@ -30,13 +30,17 @@ const Abilities = (): JSX.Element => {
     setActiveAbility(activeItem(item, arr));
   };
   return (
-    <>
+    <View style={{}}>
       <Header title="Abilities" />
       <View
         style={{
           backgroundColor: theme.colors.primary,
+          minHeight: '90%',
+          display: 'flex',
+          flexGrow: 1,
+          flexDirection: 'column',
         }}>
-        <View style={{padding: 8, height: '28%'}}>
+        <View style={{padding: 8, maxHeight: '28%'}}>
           {activeAbility ? (
             <>
               <Text
@@ -74,15 +78,15 @@ const Abilities = (): JSX.Element => {
         <View
           style={{
             padding: 8,
-            height: '28%',
+            maxHeight: '40%',
           }}>
           <List searchTerm={abName} clickHandler={clickHandler} />
         </View>
-        <View style={{padding: 8, height: '28%'}}>
+        <View style={{padding: 8}}>
           <Dictionary searchTerm={abName} clickHandler={clickHandler} />
         </View>
       </View>
-    </>
+    </View>
   );
 };
 
