@@ -70,7 +70,6 @@ const TeamBuilder = (): JSX.Element => {
           <View
             style={{
               backgroundColor: theme.colors.primary,
-              height: '100vh',
             }}>
             <Text>{editMember.name}</Text>
             <MonDet member={editMember} feat={editMember.abilities} />
@@ -83,7 +82,7 @@ const TeamBuilder = (): JSX.Element => {
                 justifyContent: 'space-evenly',
               }}>
               {[1, 2, 3, 4].map(n => {
-                return <MoveSlot member={editMember} num={n} />;
+                return <MoveSlot member={editMember} key={n} num={n} />;
               })}
             </View>
             <Button

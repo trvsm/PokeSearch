@@ -18,7 +18,7 @@ const MonDet: React.FC<Props> = ({member, feat}) => {
       <Text>Abilities: </Text>
       {member.abilities.map(abil => {
         return (
-          <Text>{`${abil.slot}: ${abil.is_hidden ? 'hidden ability: ' : ''}${
+          <Text key={abil.slot}>{`${abil.slot}: ${abil.is_hidden ? 'hidden ability: ' : ''}${
             abil.ability.name
           }  `}</Text>
         );
@@ -33,7 +33,12 @@ const MonDet: React.FC<Props> = ({member, feat}) => {
           flexDirection: 'row',
         }}>
         {member.stats.map(s => {
-          return <Text>{`${s.stat.name}: ${s.base_stat}, `}</Text>;
+          return (
+            <Text
+              key={
+                s.stat.name
+              }>{`${s.stat.name}: ${s.base_stat}, `}</Text>
+          );
         })}
       </View>
     </>
@@ -45,7 +50,9 @@ const MonDet: React.FC<Props> = ({member, feat}) => {
       }}>
       <Text>Types: </Text>
       {member.types.map(t => {
-        return <Text>{`${t.slot}: ${t.type.name} `}</Text>;
+        return (
+          <Text key={t.type.name}>{`${t.slot}: ${t.type.name} `}</Text>
+        );
       })}
     </View>
   );
