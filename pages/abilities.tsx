@@ -71,7 +71,7 @@ const Abilities = (): JSX.Element => {
           )}
         </View>
         <Search
-          placeholder="&#10067; Search for an ability by name or effect"
+          placeholder="🔍 Search for an ability by name or effect"
           changeHandler={changeHandler}
         />
         <Separator />

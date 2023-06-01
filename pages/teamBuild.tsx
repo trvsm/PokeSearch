@@ -171,7 +171,7 @@ const TeamBuilder = (): JSX.Element => {
         })}
         {/* search function by pokemon name */}
         <Search
-          placeholder="Search for a Pokemon by name"
+          placeholder="🔍 Search for a Pokemon by name"
           changeHandler={changeHandler}
         />
         <PokDictionary searchTerm={pokSearch} clickHandler={clickHandler} />

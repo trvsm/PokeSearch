@@ -56,7 +56,7 @@ const Moves = (): JSX.Element => {
           <Text>Move Details</Text>
         )}
         <Search
-          placeholder="Search for a move by effect"
+          placeholder="🔍 Search for a move by effect"
           changeHandler={changeHandler}
         />
         <MoveDictionary searchTerm={moveSearch} clickHandler={clickHandler} />
