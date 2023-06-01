@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   NativeSyntheticEvent,
   TextInputChangeEventData,
@@ -8,6 +8,8 @@ import {
   Text,
   Button,
 } from 'react-native';
+// Async Storage for persisting team
+import AsyncStorage from '@react-native-async-storage/async-storage';
 //theme styling
 import ThemeContext from '../theme';
 //component imports
@@ -23,9 +25,20 @@ import MoveSlot from '../components/moveSlot/moveSlot';
 
 const slots = [1, 2, 3, 4, 5, 6];
 
+const storeTeam = async team => {
+  try {
+    const teamJson = JSON.stringify(team);
+    //to add to team do I need setItem or merge?
+    await AsyncStorage.setItem('team', teamJson);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const TeamBuilder = (): JSX.Element => {
-  // TODO: save team using async storage: https://react-native-async-storage.github.io/async-storage/docs/install/
-  //state for team move TODO: move to app level, create context or pass listeners
+  // TODO: save move configuration
+  // TODO: allow team member delete
+    //state for team move TODO: move to app level, create context or pass listeners
   const [team, setTeam] = useState<object[]>([]);
   //state for search term by pokemon name
   const [pokSearch, setPokSearch] = useState<string>('');
@@ -35,10 +48,20 @@ const TeamBuilder = (): JSX.Element => {
   const [editMember, setEditMember] = useState<Object>();
   const {theme} = useContext(ThemeContext);
 
+  useEffect(() => {
+    const checkPrev = async () => {
+      try {
+        const value = await AsyncStorage.getItem('team');
+        value && setTeam(JSON.parse(value));
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    checkPrev();
+  }, []);
+
   //presshandler to open modal populated with pressed pokemon
   const pressHandler = (itemNum: number) => {
-    //currently gets number of team pressed, use this to open modal for corresponding
-
     //change: access the particular team member here & set that member to state.  could make it easier to edit moves!
     setEditMember(team[itemNum]);
     setModalOpen(!modalOpen);
@@ -46,9 +69,10 @@ const TeamBuilder = (): JSX.Element => {
   const changeHandler = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
     setPokSearch(currentVal(e));
   };
-  const clickHandler = (item, arr) => {
+  const clickHandler = async (item, arr) => {
     if (team.length < 6) {
       setTeam([...team, activeItem(item, arr)]);
+      await storeTeam(team);
     } else if (team.length === 6) {
       Alert.alert(
         'Team Full',
