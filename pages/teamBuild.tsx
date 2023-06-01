@@ -81,6 +81,11 @@ const TeamBuilder = (): JSX.Element => {
       );
     }
   };
+  const moveHandler=(item, num:number)=>{
+editMember[`move_${num}`]= item;
+setEditMember({...editMember})
+console.log(item)
+  }
 
   return (
     <>
@@ -106,7 +111,7 @@ const TeamBuilder = (): JSX.Element => {
                 justifyContent: 'space-evenly',
               }}>
               {[1, 2, 3, 4].map(n => {
-                return <MoveSlot member={editMember} key={n} num={n} />;
+                return <MoveSlot moveHandler={moveHandler} member={editMember} key={n} num={n} />;
               })}
             </View>
             <Button

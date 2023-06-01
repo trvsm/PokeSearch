@@ -7,11 +7,11 @@ import monMoves from '../../helpers/monMoves';
 interface Props {
   member: {} | null;
   num: number;
+  moveHandler: Function;
 }
 
-
-const MoveSlot: React.FC<Props> = ({member, num}) => {
-  const moves =monMoves(member)
+const MoveSlot: React.FC<Props> = ({member, num, moveHandler}) => {
+  const moves = monMoves(member);
 
   return (
     <View>
@@ -19,24 +19,31 @@ const MoveSlot: React.FC<Props> = ({member, num}) => {
         list items each list available moves & on press sets the move at top
         below button a "selected text shown in diff color"
         */}
-      <Button title={`Move ${num} \u02c5`} />
+
+      {member[`move_${num}`] ? (
+        <Button title={`${member[`move_${num}`]}`} />
+      ) : (
+        <Button title={`Move ${num} \u02c5`} />
+      )}
       <FlatList
-      style={{
-        height: "60%"
-      }}
-      //data: array from monmoves
-      data={moves}
-      //each item is simply the string name of move
-      renderItem={({item})=>{
-        return(
-          <Text key={item}
-          // TODO: next add presshandler at teambuild, pass as props
-          //will take a num (use num from props) and the item name
-          >
-            {item}
-          </Text>
-        )
-      }}
+        style={{
+          height: '60%',
+        }}
+        //data: array from monmoves
+        data={moves}
+        //each item is simply the string name of move
+        renderItem={({item}) => {
+          return (
+            <Text
+              key={item}
+              onPress={() => moveHandler(item, num)}
+              // TODO: next add presshandler at teambuild, pass as props
+              //will take a num (use num from props) and the item name
+            >
+              {item}
+            </Text>
+          );
+        }}
       />
     </View>
   );
