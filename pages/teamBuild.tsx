@@ -36,9 +36,8 @@ const storeTeam = async team => {
 };
 
 const TeamBuilder = (): JSX.Element => {
-  // TODO: save move configuration
   // TODO: allow team member delete
-    //state for team move TODO: move to app level, create context or pass listeners
+  //state for team move TODO: move to app level, create context or pass listeners
   const [team, setTeam] = useState<object[]>([]);
   //state for search term by pokemon name
   const [pokSearch, setPokSearch] = useState<string>('');
@@ -81,11 +80,10 @@ const TeamBuilder = (): JSX.Element => {
       );
     }
   };
-  const moveHandler=(item, num:number)=>{
-editMember[`move_${num}`]= item;
-setEditMember({...editMember})
-console.log(item)
-  }
+  const moveHandler = (item, num: number) => {
+    editMember[`move_${num}`] = item;
+    setEditMember({...editMember});
+  };
 
   return (
     <>
@@ -111,13 +109,27 @@ console.log(item)
                 justifyContent: 'space-evenly',
               }}>
               {[1, 2, 3, 4].map(n => {
-                return <MoveSlot moveHandler={moveHandler} member={editMember} key={n} num={n} />;
+                return (
+                  <MoveSlot
+                    moveHandler={moveHandler}
+                    member={editMember}
+                    key={n}
+                    num={n}
+                  />
+                );
               })}
             </View>
             <Button
               title="Close"
               onPress={() => {
                 setModalOpen(!modalOpen);
+                //find team member where name matches, overwrite with editmember
+                const updated = team.findIndex(
+                  element => element.name === editMember.name,
+                );
+                team[updated] = editMember;
+                setTeam([...team]);
+                storeTeam(team);
               }}
             />
           </View>

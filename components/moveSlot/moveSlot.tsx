@@ -16,9 +16,7 @@ const MoveSlot: React.FC<Props> = ({member, num, moveHandler}) => {
   return (
     <View>
       {/* each move view is headed with a button, onclick shows list
-        list items each list available moves & on press sets the move at top
-        below button a "selected text shown in diff color"
-        */}
+        list items each list available moves & on press sets the move at top  */}
 
       {member[`move_${num}`] ? (
         <Button title={`${member[`move_${num}`]}`} />
@@ -34,12 +32,7 @@ const MoveSlot: React.FC<Props> = ({member, num, moveHandler}) => {
         //each item is simply the string name of move
         renderItem={({item}) => {
           return (
-            <Text
-              key={item}
-              onPress={() => moveHandler(item, num)}
-              // TODO: next add presshandler at teambuild, pass as props
-              //will take a num (use num from props) and the item name
-            >
+            <Text key={item} onPress={() => moveHandler(item, num)}>
               {item}
             </Text>
           );
