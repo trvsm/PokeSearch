@@ -23,7 +23,7 @@ import currentVal from '../helpers/textInputVal';
 import activeItem from '../helpers/activeItem';
 import MoveSlot from '../components/moveSlot/moveSlot';
 
-const slots = [1, 2, 3, 4, 5, 6];
+const slots = [0, 1, 2, 3, 4, 5];
 
 const storeTeam = async team => {
   try {
@@ -83,6 +83,14 @@ const TeamBuilder = (): JSX.Element => {
   const moveHandler = (item, num: number) => {
     editMember[`move_${num}`] = item;
     setEditMember({...editMember});
+  };
+
+  const removeHandler = pokemon => {
+    const smallerTeam = team.filter(member => {
+      return member.name !== pokemon.name;
+    });
+    setTeam(smallerTeam)
+    storeTeam(smallerTeam)
   };
 
   return (
@@ -147,15 +155,17 @@ const TeamBuilder = (): JSX.Element => {
             <Slot
               key={slot}
               pokemon={team[slot]}
-              number={slot}
+              number={slot + 1}
               pressHandler={pressHandler}
+              removeHandler={removeHandler}
             />
           ) : (
             <Slot
               key={slot}
               pokemon={null}
-              number={slot}
+              number={slot + 1}
               pressHandler={pressHandler}
+              removeHandler={removeHandler}
             />
           );
         })}
