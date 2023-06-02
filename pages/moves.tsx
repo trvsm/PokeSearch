@@ -1,5 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {
+  FlatList,
   Text,
   NativeSyntheticEvent,
   TextInputChangeEventData,
@@ -14,7 +15,8 @@ import Search from '../components/search/search';
 //helper function imports
 import currentVal from '../helpers/textInputVal';
 import activeItem from '../helpers/activeItem';
-
+import Separator from '../components/separator/separator';
+//TODO: next style moves
 const Moves = (): JSX.Element => {
   //state for search term
   const [moveSearch, setMoveSearch] = useState<string>('');
@@ -35,6 +37,7 @@ const Moves = (): JSX.Element => {
       <View
         style={{
           backgroundColor: theme.colors.primary,
+          minHeight: '90%',
         }}>
         {activeMove ? (
           <>
@@ -45,12 +48,21 @@ const Moves = (): JSX.Element => {
                   : 'Effect details coming soon'
               }`}
             </Text>
+            <Separator/>
+            <View style={{maxHeight: "40%"}}>
             <Text>
               Pokemon that can learn:
-              {activeMove.learned_by_pokemon.map(pok => {
+              {/* {activeMove.learned_by_pokemon.map(pok => {
                 return `\n${pok.name}`;
-              })}
+              })} */}
             </Text>
+            <FlatList
+              data={activeMove.learned_by_pokemon}
+              renderItem={({item}) => {
+                return <Text>{item.name}</Text>;
+              }}
+              />
+              </View>
           </>
         ) : (
           <Text>Move Details</Text>
@@ -59,7 +71,9 @@ const Moves = (): JSX.Element => {
           placeholder="🔍 Search for a move by effect"
           changeHandler={changeHandler}
         />
+        <View style={{maxHeight: "40%"}}>
         <MoveDictionary searchTerm={moveSearch} clickHandler={clickHandler} />
+        </View>
       </View>
     </>
   );

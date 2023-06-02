@@ -30,14 +30,12 @@ const Abilities = (): JSX.Element => {
     setActiveAbility(activeItem(item, arr));
   };
   return (
-    <View style={{}}>
+    <View>
       <Header title="Abilities" />
       <View
         style={{
           backgroundColor: theme.colors.primary,
           minHeight: '90%',
-          display: 'flex',
-          flexGrow: 1,
           flexDirection: 'column',
         }}>
         <View style={{padding: 8, maxHeight: '28%'}}>

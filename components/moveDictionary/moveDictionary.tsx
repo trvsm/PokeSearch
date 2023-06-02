@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Button, VirtualizedList, Text} from 'react-native';
+import {Button, FlatList, Text, View} from 'react-native';
+import Separator from '../separator/separator';
 const moves = require('../../data/moves.json');
 
 interface Props {
@@ -30,18 +31,23 @@ const MoveDictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
     }
   }, [searchTerm]);
   return (
-    <>
+    <View>
       <Text>Results for search by effect:</Text>
-      <Button onPress={listToggle} title="Toggle 'by effect' results &#709;" />
+      <Button
+        color="#666"
+        onPress={listToggle}
+        title="Toggle 'by effect' results &#709;"
+      />
       {searchMatch.length ? (
-        <VirtualizedList
+        <FlatList
           style={{
             display: showList,
             padding: 10,
+            
           }}
           data={searchMatch}
-          getItem={(item, i) => item[i]}
-          getItemCount={item => item.length}
+          // getItem={(item, i) => item[i]}
+          // getItemCount={item => item.length}
           renderItem={({item}) => {
             return (
               <Text
@@ -57,7 +63,8 @@ const MoveDictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
       ) : (
         <Text>No results to display</Text>
       )}
-    </>
+      <Separator/>
+    </View>
   );
 };
 export default MoveDictionary;
