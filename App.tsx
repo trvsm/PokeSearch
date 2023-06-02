@@ -1,90 +1,103 @@
-import React, {useState} from 'react';
+import React from 'react';
 import ThemeContext, {theme} from './theme';
-import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  NativeSyntheticEvent,
-  TextInputChangeEventData,
-} from 'react-native';
+import {Button} from 'react-native';
+// google admob
+import mobileAds, {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from 'react-native-google-mobile-ads';
+// react navigation for routing
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+const Stack = createNativeStackNavigator();
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+// Component & Page Imports
+import Abilities from './pages/abilities';
+import Home from './pages/home';
+import Moves from './pages/moves';
+import TeamBuilder from './pages/teamBuild';
 
-import Header from './components/header/header';
-import Search from './components/search/search';
-import List from './components/list/list';
-import currentVal from './helpers/textInputVal';
-import activeItem from './helpers/activeItem';
-
+mobileAds()
+  .initialize()
+  .then(adapterStatuses => {
+    console.log(adapterStatuses);
+  });
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  const [abName, setAbName] = useState<string>('');
-  const [activeAbility, setActiveAbility] = useState();
+  // const isDarkMode = useColorScheme() === 'dark';
 
-  const changeHandler = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-    setAbName(currentVal(e));
-  };
-  const clickHandler = (item, arr) => {
-    setActiveAbility(activeItem(item, arr));
-  };
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  // const backgroundStyle = {
+  //   backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  // };
 
   return (
     <ThemeContext.Provider value={{theme}}>
-      <SafeAreaView style={backgroundStyle}>
-        <StatusBar
-          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-          backgroundColor={backgroundStyle.backgroundColor}
-        />
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          {activeAbility ? (
-            <Text>{`${activeAbility.name}: ${
-              activeAbility.effect_entries[0].language.name === 'en'
-                ? activeAbility.effect_entries[0].effect
-                : activeAbility.effect_entries[1].effect
-            }`}</Text>
-          ) : (
-            <></>
-          )}
-          <Search
-            placeholder="Search for an ability by name"
-            changeHandler={changeHandler}
-          />
-          <List searchTerm={abName} clickHandler={clickHandler} />
-          <Text>Debug: ctrl+m or shake to show debug</Text>
-        </View>
-      </SafeAreaView>
+      {/* <SafeAreaView style={backgroundStyle}>
+          <StatusBar
+            barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+            backgroundColor={backgroundStyle.backgroundColor}
+          /> */}
+      <BannerAd size={BannerAdSize.LEADERBOARD} unitId={TestIds.BANNER} />
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Home"
+          screenOptions={({navigation}) => ({
+            headerStyle: {
+              backgroundColor: '#333',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerRight: () => (
+              <>
+                <Button
+                  color="#666"
+                  title="Abilities"
+                  onPress={() => navigation.navigate('Abilities')}
+                />
+                <Button
+                  color="#666"
+                  title="Moves"
+                  onPress={() => navigation.navigate('Moves')}
+                />
+                <Button
+                  color="#666"
+                  title="Team Builder"
+                  onPress={() => navigation.navigate('TeamBuilder')}
+                />
+              </>
+            ),
+          })}>
+          <Stack.Screen name="Abilities" component={Abilities} />
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Moves" component={Moves} />
+          <Stack.Screen name="TeamBuilder" component={TeamBuilder} />
+        </Stack.Navigator>
+        {/* <Text>Debug: ctrl+m or shake to show debug</Text> */}
+      </NavigationContainer>
+      {/* </SafeAreaView> */}
     </ThemeContext.Provider>
   );
 }
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+// const styles = StyleSheet.create({
+//   sectionContainer: {
+//     marginTop: 32,
+//     paddingHorizontal: 24,
+//   },
+//   sectionTitle: {
+//     fontSize: 24,
+//     fontWeight: '600',
+//   },
+//   sectionDescription: {
+//     marginTop: 8,
+//     fontSize: 18,
+//     fontWeight: '400',
+//   },
+//   highlight: {
+//     fontWeight: '700',
+//   },
+// });
 
 export default App;

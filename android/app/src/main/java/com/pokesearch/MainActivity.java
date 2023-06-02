@@ -1,11 +1,21 @@
 package com.pokesearch;
 
+// import for react-navigation
+import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactActivityDelegate;
 
 public class MainActivity extends ReactActivity {
+
+  
+  // Configure react-navigation to work on android
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(null);
+  }
+
 
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
