@@ -33,7 +33,7 @@ const PokDictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
   return (
     <>
       <Text>Results for search by Pokemon name:</Text>
-      <Button onPress={listToggle} title="Show/hide results &#709;" />
+      <Button color="#666" onPress={listToggle} title="Show/hide results &#709;" />
       {searchMatch.length ? (
         <VirtualizedList
           style={{

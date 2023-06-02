@@ -19,13 +19,13 @@ const MoveSlot: React.FC<Props> = ({member, num, moveHandler}) => {
         list items each list available moves & on press sets the move at top  */}
 
       {member[`move_${num}`] ? (
-        <Button title={`${member[`move_${num}`]}`} />
+        <Button color="#666" title={`${member[`move_${num}`]}`} />
       ) : (
-        <Button title={`Move ${num} \u02c5`} />
+        <Button color="#666" title={`Move ${num} \u02c5`} />
       )}
       <FlatList
         style={{
-          height: '60%',
+          height: '70%',
         }}
         //data: array from monmoves
         data={moves}

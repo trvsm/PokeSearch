@@ -22,6 +22,7 @@ import Slot from '../components/slot/slot';
 import currentVal from '../helpers/textInputVal';
 import activeItem from '../helpers/activeItem';
 import MoveSlot from '../components/moveSlot/moveSlot';
+import Separator from '../components/separator/separator';
 
 const slots = [0, 1, 2, 3, 4, 5];
 
@@ -62,7 +63,7 @@ const TeamBuilder = (): JSX.Element => {
   //presshandler to open modal populated with pressed pokemon
   const pressHandler = (itemNum: number) => {
     //change: access the particular team member here & set that member to state.  could make it easier to edit moves!
-    setEditMember(team[itemNum]);
+    setEditMember(team[itemNum - 1]);
     setModalOpen(!modalOpen);
   };
   const changeHandler = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
@@ -89,94 +90,120 @@ const TeamBuilder = (): JSX.Element => {
     const smallerTeam = team.filter(member => {
       return member.name !== pokemon.name;
     });
-    setTeam(smallerTeam)
-    storeTeam(smallerTeam)
+    setTeam(smallerTeam);
+    storeTeam(smallerTeam);
   };
 
   return (
-    <>
+    <View>
       <Header title="Team Builder" />
-      <Modal
-        visible={modalOpen}
-        onRequestClose={() => {
-          setModalOpen(!modalOpen);
-        }}>
-        {editMember ? (
-          <View
-            style={{
-              backgroundColor: theme.colors.primary,
-            }}>
-            <Text>{editMember.name}</Text>
-            <MonDet member={editMember} feat={editMember.abilities} />
-            <MonDet member={editMember} feat={editMember.stats} />
-            <MonDet member={editMember} feat={editMember.types} />
-            {/* TODO: add field for nature*/}
+      <View style={{minHeight: '90%', backgroundColor: theme.colors.primary}}>
+        <Separator />
+        <Modal
+          visible={modalOpen}
+          onRequestClose={() => {
+            setModalOpen(!modalOpen);
+          }}>
+          {editMember ? (
             <View
               style={{
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
+                backgroundColor: theme.colors.primary,
+                height: '95%',
+                padding: 8,
               }}>
-              {[1, 2, 3, 4].map(n => {
-                return (
-                  <MoveSlot
-                    moveHandler={moveHandler}
-                    member={editMember}
-                    key={n}
-                    num={n}
-                  />
-                );
-              })}
+              <Separator />
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                }}>
+                {editMember.name}
+              </Text>
+              <MonDet member={editMember} feat={editMember.abilities} />
+              <MonDet member={editMember} feat={editMember.stats} />
+              <MonDet member={editMember} feat={editMember.types} />
+              <Separator />
+              {/* TODO: add field for nature*/}
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-evenly',
+                }}>
+                {[1, 2, 3, 4].map(n => {
+                  return (
+                    <MoveSlot
+                      moveHandler={moveHandler}
+                      member={editMember}
+                      key={n}
+                      num={n}
+                    />
+                  );
+                })}
+              </View>
+              <Separator />
+              <Button
+                title="Close"
+                color={theme.colors.highlight}
+                onPress={() => {
+                  setModalOpen(!modalOpen);
+                  //find team member where name matches, overwrite with editmember
+                  const updated = team.findIndex(
+                    element => element.name === editMember.name,
+                  );
+                  team[updated] = editMember;
+                  setTeam([...team]);
+                  storeTeam(team);
+                }}
+              />
             </View>
-            <Button
-              title="Close"
-              onPress={() => {
-                setModalOpen(!modalOpen);
-                //find team member where name matches, overwrite with editmember
-                const updated = team.findIndex(
-                  element => element.name === editMember.name,
-                );
-                team[updated] = editMember;
-                setTeam([...team]);
-                storeTeam(team);
-              }}
-            />
-          </View>
-        ) : (
-          ''
-        )}
-      </Modal>
-      <View
-        style={{
-          backgroundColor: theme.colors.primary,
-        }}>
-        {/* six slots */}
-        {slots.map(slot => {
-          return team[slot] ? (
-            <Slot
-              key={slot}
-              pokemon={team[slot]}
-              number={slot + 1}
-              pressHandler={pressHandler}
-              removeHandler={removeHandler}
-            />
           ) : (
-            <Slot
-              key={slot}
-              pokemon={null}
-              number={slot + 1}
-              pressHandler={pressHandler}
-              removeHandler={removeHandler}
-            />
-          );
-        })}
-        {/* search function by pokemon name */}
-        <Search
-          placeholder="🔍 Search for a Pokemon by name"
-          changeHandler={changeHandler}
-        />
-        <PokDictionary searchTerm={pokSearch} clickHandler={clickHandler} />
+            ''
+          )}
+        </Modal>
+        <View
+          style={{
+            backgroundColor: theme.colors.primary,
+          }}>
+          {/* six slots */}
+          {slots.map(slot => {
+            return team[slot] ? (
+              <>
+                <Slot
+                  key={slot}
+                  pokemon={team[slot]}
+                  number={slot + 1}
+                  pressHandler={pressHandler}
+                  removeHandler={removeHandler}
+                />
+                <Separator />
+              </>
+            ) : (
+              <>
+                <Slot
+                  key={slot}
+                  pokemon={null}
+                  number={slot + 1}
+                  pressHandler={pressHandler}
+                  removeHandler={removeHandler}
+                />
+                <Separator />
+              </>
+            );
+          })}
+          {/* search function by pokemon name */}
+          <Search
+            placeholder="🔍 Search for a Pokemon by name"
+            changeHandler={changeHandler}
+          />
+          <View
+            style={{
+              maxHeight: '58%',
+            }}>
+            <PokDictionary searchTerm={pokSearch} clickHandler={clickHandler} />
+          </View>
+        </View>
       </View>
-    </>
+    </View>
   );
 };
 
