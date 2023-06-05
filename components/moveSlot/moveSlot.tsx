@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, FlatList, Text, View} from 'react-native';
 
 import monMoves from '../../helpers/monMoves';
@@ -12,6 +12,11 @@ interface Props {
 
 const MoveSlot: React.FC<Props> = ({member, num, moveHandler}) => {
   const moves = monMoves(member);
+  const [showList, setShowList] = useState<'none' | 'flex'>('none');
+
+  const listToggle = () => {
+    showList === 'none' ? setShowList('flex') : setShowList('none');
+  };
 
   return (
     <View>
@@ -19,12 +24,21 @@ const MoveSlot: React.FC<Props> = ({member, num, moveHandler}) => {
         list items each list available moves & on press sets the move at top  */}
 
       {member[`move_${num}`] ? (
-        <Button color="#666" title={`${member[`move_${num}`]}`} />
+        <Button
+          color="#666"
+          onPress={listToggle}
+          title={`${member[`move_${num}`]}`}
+        />
       ) : (
-        <Button color="#666" title={`Move ${num} \u02c5`} />
+        <Button
+          color="#666"
+          onPress={listToggle}
+          title={`Move ${num} \u02c5`}
+        />
       )}
       <FlatList
         style={{
+          display: showList,
           height: '70%',
         }}
         //data: array from monmoves

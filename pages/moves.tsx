@@ -48,21 +48,21 @@ const Moves = (): JSX.Element => {
                   : 'Effect details coming soon'
               }`}
             </Text>
-            <Separator/>
-            <View style={{maxHeight: "40%"}}>
-            <Text>
-              Pokemon that can learn:
-              {/* {activeMove.learned_by_pokemon.map(pok => {
+            <Separator />
+            <View style={{maxHeight: '40%'}}>
+              <Text>
+                Pokemon that can learn:
+                {/* {activeMove.learned_by_pokemon.map(pok => {
                 return `\n${pok.name}`;
               })} */}
-            </Text>
-            <FlatList
-              data={activeMove.learned_by_pokemon}
-              renderItem={({item}) => {
-                return <Text>{item.name}</Text>;
-              }}
+              </Text>
+              <FlatList
+                data={activeMove.learned_by_pokemon}
+                renderItem={({item}) => {
+                  return <Text>{item.name}</Text>;
+                }}
               />
-              </View>
+            </View>
           </>
         ) : (
           <Text>Move Details</Text>
@@ -71,8 +71,8 @@ const Moves = (): JSX.Element => {
           placeholder="🔍 Search for a move by effect"
           changeHandler={changeHandler}
         />
-        <View style={{maxHeight: "40%"}}>
-        <MoveDictionary searchTerm={moveSearch} clickHandler={clickHandler} />
+        <View style={{maxHeight: '40%'}}>
+          <MoveDictionary searchTerm={moveSearch} clickHandler={clickHandler} />
         </View>
       </View>
     </>

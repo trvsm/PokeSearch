@@ -10,7 +10,7 @@ interface Props {
 
 const MoveDictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
   const [searchMatch, setSearchMatch] = useState<string[]>([]);
-  const [showList, setShowList] = useState('none');
+  const [showList, setShowList] = useState<'none' | 'flex'>('none');
 
   const listToggle = () => {
     showList === 'none' ? setShowList('flex') : setShowList('none');
@@ -43,7 +43,6 @@ const MoveDictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
           style={{
             display: showList,
             padding: 10,
-            
           }}
           data={searchMatch}
           // getItem={(item, i) => item[i]}
@@ -63,7 +62,7 @@ const MoveDictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
       ) : (
         <Text>No results to display</Text>
       )}
-      <Separator/>
+      <Separator />
     </View>
   );
 };

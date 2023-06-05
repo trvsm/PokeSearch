@@ -6,7 +6,8 @@ const Separator: React.FC = () => {
     <View
       style={{
         marginVertical: 8,
-      }}></View>
+      }}
+    />
   );
 };
 export default Separator;

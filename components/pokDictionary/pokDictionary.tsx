@@ -9,7 +9,7 @@ interface Props {
 
 const PokDictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
   const [searchMatch, setSearchMatch] = useState<string[]>([]);
-  const [showList, setShowList] = useState('none');
+  const [showList, setShowList] = useState<'none' | 'flex'>('none');
 
   const listToggle = () => {
     showList === 'none' ? setShowList('flex') : setShowList('none');
@@ -33,7 +33,11 @@ const PokDictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
   return (
     <>
       <Text>Results for search by Pokemon name:</Text>
-      <Button color="#666" onPress={listToggle} title="Show/hide results &#709;" />
+      <Button
+        color="#666"
+        onPress={listToggle}
+        title="Show/hide results &#709;"
+      />
       {searchMatch.length ? (
         <VirtualizedList
           style={{
