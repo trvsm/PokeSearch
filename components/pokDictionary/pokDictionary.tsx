@@ -50,6 +50,7 @@ const PokDictionary: React.FC<Props> = ({searchTerm, clickHandler}) => {
           renderItem={({item}) => {
             return (
               <Text
+              key={item.name}
                 id={item.name}
                 onPress={() => {
                   clickHandler(item, mons);

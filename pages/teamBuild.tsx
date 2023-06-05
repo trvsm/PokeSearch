@@ -106,6 +106,7 @@ const TeamBuilder = (): JSX.Element => {
           }}>
           {editMember ? (
             <View
+            key={editMember.name}
               style={{
                 backgroundColor: theme.colors.primary,
                 height: '95%',
