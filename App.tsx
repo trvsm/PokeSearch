@@ -37,7 +37,10 @@ function App(): JSX.Element {
             barStyle={isDarkMode ? 'light-content' : 'dark-content'}
             backgroundColor={backgroundStyle.backgroundColor}
           /> */}
-      <BannerAd size={BannerAdSize.LEADERBOARD} unitId={TestIds.BANNER} />
+      <BannerAd
+        size={BannerAdSize.LEADERBOARD}
+        unitId={"ca-app-pub-3162342803316917/7681452739"}
+      />
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Home"
